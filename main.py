@@ -12,7 +12,7 @@ import io
 ticket_path = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__file__))
 
 #planet = tap_api.get_random_planet()
-planet = {'hostname': 'HD 152843', 'disc_year': 2021, 'pl_name': 'HD 152843 c', 'pl_orbper': 19.502104, 'pl_orbsmax': 0.1482, 'pl_rade': 5.94, 'pl_masse': 9.67, 'pl_eqt': 253.08, 'sy_pnum': 2, 'sy_dist': 107.898}
+planet = {'hostname': 'HD 152843', 'disc_year': 2021, 'pl_name': 'HD 152843 c', 'pl_orbper': 19.502104, 'pl_orbsmax': 0.1482, 'pl_rade': 2.57, 'pl_masse': None, 'pl_eqt': 286, 'sy_pnum': 2, 'sy_dist': 107.898}
 print(f"Chosen planet: {planet.get('pl_name')}")
 
 base = texture_gen.get_base(planet)
