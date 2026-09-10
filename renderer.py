@@ -2,25 +2,29 @@ from PIL import Image
 import numpy as np
 
 def load_texture(path, tone):
+    dark_color, light_color = tone
     image = Image.open(path).convert("RGBA")
 
-    rgb = np.array(image)[..., :3].astype(np.float32)
-    alpha = np.array(image)[..., 3]
+    data = np.array(image)
+    brightness = data[..., :3].mean(axis=2) / 255.0
+    alpha = data[..., 3]
 
-    tone = np.array(tone, dtype=np.float32)
-    rgb = rgb * (tone / 255.0)
+    dark = np.array(dark_color, dtype=np.float32)
+    light = np.array(light_color, dtype=np.float32)
+
+    rgb = dark + brightness[..., None] * (light - dark)
+
     rgb = np.clip(rgb, 0, 255).astype(np.uint8)
-    result = np.dstack((rgb, alpha))
 
-    return Image.fromarray(result, "RGBA")
+    return Image.fromarray(np.dstack((rgb, alpha)), "RGBA")
 
 def overlay_texture(base, texture):
     return Image.alpha_composite(base, texture)
 
 def build_planet_texture(base, details):
-    base_path, base_tone = base
+    base_path, tone = base
 
-    texture = load_texture(base_path, base_tone)
+    texture = load_texture(base_path, tone)
 
     for detail_path, detail_tone in details:
         detail = load_texture(detail_path, detail_tone)

@@ -6,7 +6,7 @@ class TexturePool:
     def __init__(self,
                  name: str,
                  textures: list[str], 
-                 tones: list[tuple[int, int, int]], 
+                 tones,#: list[tuple[int, int, int]], 
                  predicate: Callable[[float, float], bool]
                  ):
         self.name = name
@@ -262,10 +262,12 @@ atmospheres = [
         ])),
 ]
 
-# def is_hot(temp): return temp > 1000 if temp else False
-# def is_cold(temp): return temp < 220 if temp else False
-
 def get_base(planet) -> TexturePool:
+    return TexturePool(name="Rocky",textures=[
+        "base4.jpg"
+    ], tones=[
+        ((124, 91, 64), (20, 155, 36)) 
+    ], predicate=lambda _, __: True)
     options = [item for item in bases if item.test(planet)]
     if len(options) == 0: options = bases
     return random.choice(options)
