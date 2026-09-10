@@ -154,7 +154,7 @@ details = [
         ],
         predicate=lambda pl_rade, pl_eqt: all([
             __between(pl_rade, 0.5, 2.5),
-            __between(pl_eqt, 200, 700),
+            __between(pl_eqt, 200, 900),
             random.random() < 0.9
         ])),
     TexturePool(name="Cloudy",
